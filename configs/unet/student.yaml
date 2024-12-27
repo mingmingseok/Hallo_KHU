@@ -1,0 +1,31 @@
+unet_additional_kwargs:
+  use_inflated_groupnorm: false  # Student에서는 GroupNorm 비활성화
+  unet_use_cross_frame_attention: false
+  unet_use_temporal_attention: false
+  use_motion_module: false  # Motion Module 비활성화
+  use_audio_module: true  # Audio Module 유지
+  motion_module_resolutions: []  # Motion Module 사용 안 함
+  motion_module_mid_block: false
+  motion_module_decoder_only: false
+  motion_module_type: None  # Motion Module 타입 제거
+  motion_module_kwargs: {}  # Motion Module 인자 비활성화
+  audio_attention_dim: 512  # Audio Attention Dimension 축소
+  stack_enable_blocks_name:
+    - "up"
+    - "down"
+  stack_enable_blocks_depth: [0, 1]  # ResNet Block 깊이 축소
+
+enable_zero_snr: true
+
+noise_scheduler_kwargs:
+  beta_start: 0.00085
+  beta_end: 0.012
+  beta_schedule: "linear"
+  clip_sample: false
+  steps_offset: 1
+  ### Zero-SNR params
+  prediction_type: "v_prediction"
+  rescale_betas_zero_snr: True
+  timestep_spacing: "trailing"
+
+sampler: DDIM
